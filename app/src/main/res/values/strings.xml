@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">MockMyLocation</string>
+    <string name="current_latitude">Real Latitude:</string>
+    <string name="latitude">Latitude</string>
+    <string name="current_longitude">Real Longitude:</string>
+    <string name="longitude">Longitude</string>
+    <string name="enter_mock_latitude">Mock Latitude</string>
+    <string name="mock_latitude">Mock Latitude</string>
+    <string name="enter_mock_longitude">Mock Longitude</string>
+    <string name="activate_mock">Activate Mock Location</string>
+    <string name="network">NETWORK</string>
+    <string name="gps">GPS</string>
+    <string name="activate_location_services">Activate Location Services</string>
+    <string name="select_a_connection_provider">Select a Connection Provider</string>
+    <string name="address">Address</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mock_location_activated">Mock Location Activated</string>
+    <string name="mock_location_status">Mock Location Status</string>
+    <string name="mock_address">Mock Address</string>
+    <string name="custom_location">Custom Location</string>
+    <string name="street">Street</string>
+    <string name="number">#</string>
+    <string name="town">Town</string>
+    <string name="state">State</string>
+    <string name="zipcode">Zipcode</string>
+    <string name="search">Search</string>
+    <string name="activate">Activate</string>
+    <string name="generate_random">Select \'RANDOM\' to have the application generate and use a random location for you</string>
+    <string name="notification">Scroll down and choose \'Select mock location app.\' \nSelect MockMyLocation from the results  \nThen, press back to return to the app and re-activate this switch</string>
+    <string name="random">Random</string>
+    <string name="reported_latitude">Reported Latitude</string>
+    <string name="reported_longitude">Reported Longitude</string>
+</resources>

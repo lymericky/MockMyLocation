@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/grayColor">
+
+    <TextView
+        android:id="@+id/txt_activate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:fontFamily="@font/acme"
+        android:text="@string/custom_location"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        tools:ignore="TextContrastCheck"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_activate"
+        android:background="@color/blue_grey" />
+
+        <RelativeLayout
+            android:id="@+id/customLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp">
+
+            <EditText
+                android:id="@+id/edt_houseNumber"
+                android:layout_width="135dp"
+                android:layout_height="60dp"
+                android:hint="@string/number"
+                android:textSize="28sp"
+                android:autofillHints="postalAddress"
+                android:inputType="number"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                tools:ignore="TextContrastCheck"/>
+
+            <EditText
+                android:id="@+id/edt_street"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:hint="@string/street"
+                android:textSize="28sp"
+                android:autofillHints="postalAddress"
+                android:inputType="text"
+                android:layout_toEndOf="@+id/edt_houseNumber"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                tools:ignore="TextContrastCheck"/>
+
+            <EditText
+                android:id="@+id/edt_town"
+                android:layout_width="135dp"
+                android:layout_height="60dp"
+                android:hint="@string/town"
+                android:textSize="28sp"
+                android:autofillHints="postalAddress"
+                android:inputType="text"
+                android:layout_toEndOf="@+id/edt_street"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                tools:ignore="TextContrastCheck"/>
+
+            <EditText
+                android:id="@+id/edt_state"
+                android:layout_width="135dp"
+                android:layout_height="60dp"
+                android:hint="@string/state"
+                android:textSize="28sp"
+                android:autofillHints="postalAddress"
+                android:inputType="text"
+                android:layout_below="@+id/edt_houseNumber"
+                android:gravity="center_horizontal"
+                tools:ignore="TextContrastCheck"/>
+
+            <EditText
+                android:id="@+id/edt_zipcode"
+                android:layout_width="135dp"
+                android:layout_height="60dp"
+                android:hint="@string/zipcode"
+                android:textSize="28sp"
+                android:autofillHints="postalAddress"
+                android:inputType="number"
+                android:layout_alignStart="@+id/edt_town"
+                android:layout_below="@+id/edt_town"
+                android:gravity="center_horizontal"
+                tools:ignore="TextContrastCheck"/>
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search"
+                android:layout_alignStart="@+id/edt_street"
+                android:layout_alignEnd="@+id/edt_street"
+                android:layout_below="@+id/edt_street"
+                android:layout_marginHorizontal="5dp"
+                />
+
+        </RelativeLayout>
+
+    <Spinner
+        android:id="@+id/spn_prevAddresses"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:layout_marginHorizontal="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customLayout"
+        tools:ignore="TextContrastCheck"
+        />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spn_prevAddresses"
+        android:background="@color/blue_grey"/>
+
+    <LinearLayout
+        android:id="@+id/customLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        android:layout_marginVertical="15dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/txt_lat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/latitude"
+            android:textSize="28sp"
+            android:layout_marginEnd="20dp"
+            tools:ignore="TextContrastCheck"/>
+        <TextView
+            android:id="@+id/txt_lon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/longitude"
+            android:textSize="28sp"
+            tools:ignore="TextContrastCheck"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lbl_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activate"
+        android:textSize="30sp"
+        android:labelFor="@+id/sw_activate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        tools:ignore="TextContrastCheck"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/sw_activate"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        app:layout_constraintStart_toStartOf="@+id/lbl_switch"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_switch"
+        app:layout_constraintEnd_toEndOf="@+id/lbl_switch"/>
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customLayout2"
+        android:background="@color/blue_grey"
+        android:layout_marginTop="5dp"/>
+
+    <LinearLayout
+        android:id="@+id/customLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider3"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/lbl_random"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/generate_random"
+            android:textSize="28sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <Button
+            android:id="@+id/btn_random"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/random"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customLayout3"
+        android:background="@color/blue_grey"
+        android:layout_marginTop="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="40dp">
+
+        <TextView
+            android:id="@+id/txt_reportedLat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/reported_latitude"
+            android:textSize="32sp"
+            android:textColor="@color/orange"
+            android:textColorHint="@color/orange"
+            android:layout_marginEnd="40dp"/>
+        <TextView
+            android:id="@+id/txt_reportedLon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/reported_longitude"
+            android:textColor="@color/orange"
+            android:textColorHint="@color/orange"
+            android:textSize="32sp"/>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

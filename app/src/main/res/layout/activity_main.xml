@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/grayColor">
+
+    <TextView
+        android:id="@+id/txt_activate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:fontFamily="@font/acme"
+        android:text="@string/custom_location"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/divider"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_activate"
+        android:background="@color/blue_grey"/>
+
+        <RelativeLayout
+            android:id="@+id/customLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            android:gravity="center_horizontal">
+
+            <EditText
+                android:id="@+id/txt_houseNumber"
+                android:layout_width="75dp"
+                android:layout_height="48dp"
+                android:hint="@string/number"
+                android:autofillHints="postalAddress"
+                android:inputType="number"
+                android:gravity="center_horizontal"
+                tools:ignore="TextContrastCheck"/>
+
+            <EditText
+                android:id="@+id/txt_street"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:hint="@string/street"
+                android:autofillHints="postalAddress"
+                android:inputType="text"
+                android:layout_toEndOf="@+id/txt_houseNumber"
+                android:gravity="center_horizontal"
+                tools:ignore="TextContrastCheck"/>
+
+            <EditText
+                android:id="@+id/txt_town"
+                android:layout_width="75dp"
+                android:layout_height="48dp"
+                android:hint="@string/town"
+                android:autofillHints="postalAddress"
+                android:inputType="text"
+                android:layout_toEndOf="@+id/txt_street"
+                android:gravity="center_horizontal"
+                tools:ignore="TextContrastCheck"/>
+
+            <EditText
+                android:id="@+id/txt_state"
+                android:layout_width="75dp"
+                android:layout_height="48dp"
+                android:hint="@string/state"
+                android:autofillHints="postalAddress"
+                android:inputType="text"
+                android:layout_below="@+id/txt_houseNumber"
+                android:gravity="center_horizontal"
+                tools:ignore="TextContrastCheck"/>
+
+            <EditText
+                android:id="@+id/txt_zipcode"
+                android:layout_width="75dp"
+                android:layout_height="48dp"
+                android:hint="@string/zipcode"
+                android:autofillHints="postalAddress"
+                android:inputType="number"
+                android:layout_alignStart="@+id/txt_town"
+                android:layout_below="@+id/txt_town"
+                android:gravity="center_horizontal"
+                tools:ignore="TextContrastCheck"/>
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search"
+                android:layout_alignStart="@+id/txt_street"
+                android:layout_alignEnd="@+id/txt_street"
+                android:layout_below="@+id/txt_street"
+                android:layout_marginHorizontal="5dp"
+                />
+
+        </RelativeLayout>
+
+    <Spinner
+        android:id="@+id/spn_prevAddresses"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customLayout"
+        android:gravity="center_horizontal"
+        android:layout_marginHorizontal="40dp"/>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spn_prevAddresses"
+        android:background="@color/blue_grey"/>
+
+    <LinearLayout
+        android:id="@+id/customLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/txt_lat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/latitude"
+            android:layout_marginEnd="10dp"
+            tools:ignore="TextContrastCheck"/>
+        <TextView
+            android:id="@+id/txt_lon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/longitude"
+            tools:ignore="TextContrastCheck"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lbl_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activate"
+        android:labelFor="@+id/sw_activate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/sw_activate"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        app:layout_constraintStart_toStartOf="@+id/lbl_switch"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_switch"
+        app:layout_constraintEnd_toEndOf="@+id/lbl_switch"/>
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customLayout2"
+        android:background="@color/blue_grey"
+        android:layout_marginTop="5dp"/>
+
+    <LinearLayout
+        android:id="@+id/customLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider3"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/lbl_random"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/generate_random"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <Button
+            android:id="@+id/btn_random"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/random"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customLayout3"
+        android:background="@color/blue_grey"
+        android:layout_marginTop="5dp"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
