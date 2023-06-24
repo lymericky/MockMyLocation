@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">MockMyLocation</string>
-    <string name="current_latitude">Real Latitude:</string>
+    <string name="selected_latitude">Selected Latitude:</string>
     <string name="latitude">Latitude</string>
-    <string name="current_longitude">Real Longitude:</string>
+    <string name="selected_longitude">Selected Longitude:</string>
     <string name="longitude">Longitude</string>
     <string name="enter_mock_latitude">Mock Latitude</string>
     <string name="mock_latitude">Mock Latitude</string>
@@ -26,9 +26,15 @@
     <string name="zipcode">Zipcode</string>
     <string name="search">Search</string>
     <string name="activate">Activate</string>
+    <string name="activated">Activated</string>
     <string name="generate_random">Select \'RANDOM\' to have the application generate and use a random location for you</string>
     <string name="notification">Scroll down and choose \'Select mock location app.\' \nSelect MockMyLocation from the results  \nThen, press back to return to the app and re-activate this switch</string>
     <string name="random">Random</string>
-    <string name="reported_latitude">Reported Latitude</string>
-    <string name="reported_longitude">Reported Longitude</string>
+    <string name="reported_latitude">Broadcasting Latitude</string>
+    <string name="reported_longitude">Broadcasting Longitude</string>
+    <string name="or">- OR -</string>
+    <string name="location_address_1">Location Address 1</string>
+    <string name="off">OFF</string>
+    <string name="empty">empty</string>
+    <string name="no_result">No Result</string>
 </resources>

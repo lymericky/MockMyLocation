@@ -10,6 +10,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -42,22 +43,42 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.mock_longitude = mock_longitude;
     }
 
+    /*
+    * User Enters an Address to Retrieve Coordinates
+    * */
     public Address address;
     public int houseNumber, zipcode;
     public String streetAddress, state, town;
-    public int randomSelection = 0;
+
     /*
-     * Geocoder to get an address from coordinates
-     * */
-    public Geocoder geocoder;
+    * Randomly Select Coordinates to Mock
+    * from the addressArrayList
+    * */
+    public int randomSelection = 0;
+
+    /*
+    * Creates the Mock Location
+    * with LocationManager
+    * */
     public MockLocationClass mockLocationClass;
+
+    /*
+    * Uses Geocoder to retrieve
+    * coordinates from an address
+    * */
+    public CoordinatesFromAddress coordinatesFromAddress;
+
     /*
     * boolean to check mock location dev setting
     * */
     public boolean isReady;
+
+    /*
+    * Boolean for toggle switch
+    * */
     public boolean isActivated;
     public ArrayList<Address> addressArrayList;
-    public ArrayAdapter adapter;
+    public ArrayAdapter<String> adapter;
     public String[] spinnerSelections = {
             "Massachusetts",
             "Statue of Liberty",
@@ -66,8 +87,9 @@ public class MainActivity extends AppCompatActivity {
     };
     public EditText
             edt_houseNumber, edt_street, edt_town, edt_state, edt_zipcode;
-    public TextView lbl_activate, txt_lat, txt_lon,
-            txt_reportedLat, txt_reportedLon;
+    public TextView
+            lbl_activate, txt_lat, txt_lon, txt_reportedLat,
+            txt_reportedLon, txt_userLat, txt_userLon;
     public Button btn_random, btn_search;
     public Spinner spn_address;
     public SwitchCompat sw_activate;
@@ -83,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         isReady = isMockLocationEnabled();
+
     }
 
     @Override
@@ -103,17 +126,41 @@ public class MainActivity extends AppCompatActivity {
         sw_activate = findViewById(R.id.sw_activate);
         txt_reportedLat = findViewById(R.id.txt_reportedLat);
         txt_reportedLon = findViewById(R.id.txt_reportedLon);
-        adapter = new ArrayAdapter(
-                this, android.R.layout.simple_spinner_item,
-                spinnerSelections
-        );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spn_address.setAdapter(adapter);
+        txt_userLat = findViewById(R.id.txt_userLat);
+        txt_userLon = findViewById(R.id.txt_userLon);
+
+        try {
+            adapter = new ArrayAdapter<>(
+                    this, R.layout.spinner_item,
+                    spinnerSelections
+            );
+            adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+            spn_address.setAdapter(adapter);
+        } catch (Exception e) {
+            showErrorMessage(e.getMessage());
+        }
 
         btn_random.setOnClickListener(v -> {
             showMessage(String.valueOf(chooseRandomLocation()));
             spn_address.setSelection(chooseRandomLocation() - 1);
-            sw_activate.toggle();
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    sw_activate.toggle();
+                    Toast.makeText(MainActivity.this,
+                            "Mock Activated!", Toast.LENGTH_SHORT)
+                            .show();
+                }
+            };
+            handler.postDelayed(runnable, 3000);
+        });
+
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retrieveCoordinates();
+            }
         });
 
         spn_address.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -143,24 +190,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         sw_activate.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (sw_activate.isChecked()) {
                 if (!isReady) {
                     Toast.makeText(this, R.string.notification, Toast.LENGTH_LONG).show();
                     startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
                     sw_activate.toggle();
+
                 } else {
                     if (!isActivated) {
                         activateMockLocation(true);
+                        lbl_activate.setText(getString(R.string.activated));
+                        lbl_activate.setTextColor(getColor(R.color.amber));
+                        txt_reportedLon.setTextColor(getColor(R.color.amber));
+                        txt_reportedLat.setTextColor(getColor(R.color.amber));
+                        isActivated = true;
+
                     } else {
                         mockLocationClass.stopMockLocationUpdates();
                         isActivated = false;
+                        lbl_activate.setText(getString(R.string.activate));
+                        lbl_activate.setTextColor(getColor(R.color.black));
+                        txt_reportedLon.setTextColor(getColor(R.color.black));
+                        txt_reportedLon.setText(getString(R.string.off));
+                        txt_reportedLat.setTextColor(getColor(R.color.black));
+                        txt_reportedLat.setText(getString(R.string.off));
                     }
                 }
             } else {
                 mockLocationClass.stopMockLocationUpdates();
                 isActivated = false;
+                lbl_activate.setText(getString(R.string.activate));
+                lbl_activate.setTextColor(getColor(R.color.black));
+                txt_reportedLon.setTextColor(getColor(R.color.black));
+                txt_reportedLon.setText(getString(R.string.off));
+                txt_reportedLat.setTextColor(getColor(R.color.black));
+                txt_reportedLat.setText(getString(R.string.off));
             }
         });
 
@@ -252,5 +317,34 @@ public class MainActivity extends AppCompatActivity {
         return isMockLocation;
     }
 
+    public void retrieveCoordinates() {
+        double tempLat = 0;
+        double tempLon = 0;
+
+        try {
+            houseNumber = Integer.parseInt(edt_houseNumber.getText().toString());
+            zipcode = Integer.parseInt(edt_zipcode.getText().toString());
+            streetAddress = edt_street.getText().toString();
+            town = edt_town.getText().toString();
+            state = edt_state.getText().toString();
+
+            coordinatesFromAddress = new CoordinatesFromAddress(
+                    MainActivity.this,
+                    houseNumber,
+                    zipcode,
+                    streetAddress,
+                    town,
+                    state);
+            tempLat = coordinatesFromAddress.latitude;
+            tempLon = coordinatesFromAddress.longitude;
+            txt_userLat.setText(String.valueOf(tempLat));
+            txt_userLon.setText(String.valueOf(tempLon));
+
+            showMessage("TempLat:\t" + tempLat + "\tTempLon:\t" + tempLon);
+
+        } catch (NullPointerException e) {
+            showErrorMessage(e.getMessage());
+        }
+    }
 
 }

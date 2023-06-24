@@ -35,6 +35,14 @@ public class CoordinatesFromAddress {
         this.longitude = longitude;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
     public CoordinatesFromAddress(Context context, int houseNumber, int zipcode,
                                   String street, String town, String state) {
         this.houseNumber = houseNumber;
@@ -57,16 +65,16 @@ public class CoordinatesFromAddress {
         try {
             addressList = geocoder.getFromLocationName(searchAddress, 1);
             setLatitude(addressList.get(0).getLatitude());
+            latitude = addressList.get(0).getLatitude();
+            Log.i("LATITUDE", String.valueOf(latitude));
             setLongitude(addressList.get(0).getLongitude());
+            longitude = addressList.get(0).getLongitude();
+            Log.i("LONGITUDE", String.valueOf(longitude));
         } catch (IOException e) {
             Log.e("ERROR", e.getMessage());
         }
 
         return null;
     }
-
-
-
-
 
 }

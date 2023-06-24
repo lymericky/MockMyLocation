@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/grayColor">
+    android:background="@color/grayColor"
+    tools:ignore="TextContrastCheck">
 
     <TextView
-        android:id="@+id/txt_activate"
+        android:id="@+id/txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
@@ -27,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_activate"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title"
         android:background="@color/blue_grey" />
 
         <RelativeLayout
@@ -49,7 +50,9 @@
                 android:inputType="number"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                tools:ignore="TextContrastCheck"/>
+                tools:ignore="TextContrastCheck"
+                android:minHeight="48dp"
+                android:minWidth="48dp"/>
 
             <EditText
                 android:id="@+id/edt_street"
@@ -62,7 +65,9 @@
                 android:layout_toEndOf="@+id/edt_houseNumber"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                tools:ignore="TextContrastCheck"/>
+                tools:ignore="TextContrastCheck"
+                android:minHeight="48dp"
+                android:minWidth="48dp"/>
 
             <EditText
                 android:id="@+id/edt_town"
@@ -75,7 +80,9 @@
                 android:layout_toEndOf="@+id/edt_street"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                tools:ignore="TextContrastCheck"/>
+                tools:ignore="TextContrastCheck"
+                android:minHeight="48dp"
+                android:minWidth="48dp"/>
 
             <EditText
                 android:id="@+id/edt_state"
@@ -87,7 +94,9 @@
                 android:inputType="text"
                 android:layout_below="@+id/edt_houseNumber"
                 android:gravity="center_horizontal"
-                tools:ignore="TextContrastCheck"/>
+                tools:ignore="TextContrastCheck"
+                android:minHeight="48dp"
+                android:minWidth="48dp"/>
 
             <EditText
                 android:id="@+id/edt_zipcode"
@@ -100,7 +109,9 @@
                 android:layout_alignStart="@+id/edt_town"
                 android:layout_below="@+id/edt_town"
                 android:gravity="center_horizontal"
-                tools:ignore="TextContrastCheck"/>
+                tools:ignore="TextContrastCheck"
+                android:minHeight="48dp"
+                android:minWidth="48dp"/>
 
             <Button
                 android:id="@+id/btn_search"
@@ -110,30 +121,45 @@
                 android:layout_alignStart="@+id/edt_street"
                 android:layout_alignEnd="@+id/edt_street"
                 android:layout_below="@+id/edt_street"
-                android:layout_marginHorizontal="5dp"
+                android:layout_marginHorizontal="25dp"
                 />
+
+            <TextView
+                android:id="@+id/txt_userLat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_result"
+                android:layout_below="@+id/edt_state"
+                android:layout_alignStart="@+id/edt_state"
+                android:layout_alignEnd="@+id/edt_state"
+                android:gravity="center_horizontal"
+                />
+            <TextView
+                android:id="@+id/txt_userLon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_result"
+                android:layout_below="@+id/edt_zipcode"
+                android:layout_alignStart="@+id/edt_zipcode"
+                android:layout_alignEnd="@+id/edt_zipcode"
+                android:gravity="center_horizontal"
+                />
+
 
         </RelativeLayout>
 
     <Spinner
         android:id="@+id/spn_prevAddresses"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="85dp"
         android:textAlignment="center"
         android:gravity="center_horizontal"
-        android:layout_marginHorizontal="40dp"
+        android:layout_marginHorizontal="80dp"
+        android:padding="1dp"
+        android:layout_marginVertical="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customLayout"
-        tools:ignore="TextContrastCheck"
         />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spn_prevAddresses"
-        android:background="@color/blue_grey"/>
 
     <LinearLayout
         android:id="@+id/customLayout2"
@@ -141,57 +167,66 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2"
-        android:layout_marginVertical="15dp"
-        android:gravity="center_horizontal">
+        app:layout_constraintTop_toBottomOf="@+id/spn_prevAddresses"
+        android:gravity="center"
+        android:layout_marginVertical="10dp"
+        android:background="@color/blue_grey"
+        android:layout_marginHorizontal="2dp">
 
         <TextView
             android:id="@+id/txt_lat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/latitude"
-            android:textSize="28sp"
+            android:hint="@string/selected_latitude"
+            android:textSize="20sp"
             android:layout_marginEnd="20dp"
-            tools:ignore="TextContrastCheck"/>
+            tools:ignore="TextContrastCheck"
+            android:textColor="@color/green_light"
+            android:minHeight="48dp"
+            android:minWidth="48dp"/>
         <TextView
             android:id="@+id/txt_lon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/longitude"
-            android:textSize="28sp"
-            tools:ignore="TextContrastCheck"/>
+            android:hint="@string/selected_longitude"
+            android:textSize="20sp"
+            tools:ignore="TextContrastCheck"
+            android:textColor="@color/green_light"
+            android:minHeight="48dp"
+            android:minWidth="48dp"/>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/lbl_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activate"
-        android:textSize="30sp"
-        android:labelFor="@+id/sw_activate"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        tools:ignore="TextContrastCheck"/>
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/sw_activate"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        app:layout_constraintStart_toStartOf="@+id/lbl_switch"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_switch"
-        app:layout_constraintEnd_toEndOf="@+id/lbl_switch"/>
-
     <View
-        android:id="@+id/divider3"
+        android:id="@+id/divider2"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customLayout2"
         android:background="@color/blue_grey"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginVertical="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        android:layout_marginTop="45dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/or"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:fontFamily="@font/acme"
+            android:textSize="40sp"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
+            android:gravity="center" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/customLayout3"
@@ -209,13 +244,16 @@
             android:text="@string/generate_random"
             android:textSize="28sp"
             android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="10dp"/>
+            android:layout_marginHorizontal="10dp"
+            android:minHeight="48dp"
+            android:minWidth="48dp"/>
 
         <Button
             android:id="@+id/btn_random"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/random"
+            android:layout_marginVertical="45dp"
             />
 
     </LinearLayout>
@@ -229,7 +267,42 @@
         android:background="@color/blue_grey"
         android:layout_marginTop="5dp"/>
 
+    <RelativeLayout
+        android:id="@+id/statusLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomLayout">
+
+        <TextView
+            android:id="@+id/lbl_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activate"
+            android:textSize="60sp"
+            android:fontFamily="@font/acme"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:labelFor="@+id/sw_activate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            tools:ignore="TextContrastCheck"
+            android:minHeight="48dp"
+            android:minWidth="48dp"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/sw_activate"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_below="@+id/lbl_switch"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="5dp"
+            android:minHeight="48dp"
+            android:minWidth="48dp"/>
+
+    </RelativeLayout>
+
     <LinearLayout
+        android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -242,22 +315,24 @@
             android:id="@+id/txt_reportedLat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/reported_latitude"
+            android:text="@string/off"
             android:textSize="32sp"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
-            android:layout_marginEnd="40dp"/>
+            android:textStyle="italic"
+            android:layout_marginEnd="40dp"
+            tools:ignore="TextContrastCheck"
+            android:minHeight="48dp"
+            android:minWidth="48dp"/>
         <TextView
             android:id="@+id/txt_reportedLon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/reported_longitude"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
-            android:textSize="32sp"/>
+            android:text="@string/off"
+            android:textSize="32sp"
+            android:textStyle="italic"
+            tools:ignore="TextContrastCheck"
+            android:minHeight="48dp"
+            android:minWidth="48dp"/>
 
     </LinearLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
