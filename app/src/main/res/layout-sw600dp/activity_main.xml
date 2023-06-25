@@ -313,6 +313,7 @@
         android:layout_height="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customLayout3"
+        app:layout_constraintBottom_toTopOf="@+id/statusLayout"
         android:background="@color/blue_grey"
         android:layout_marginTop="5dp"/>
 
@@ -328,7 +329,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/activate"
-            android:textSize="60sp"
+            android:textSize="40sp"
             android:fontFamily="@font/acme"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:labelFor="@+id/sw_activate"
