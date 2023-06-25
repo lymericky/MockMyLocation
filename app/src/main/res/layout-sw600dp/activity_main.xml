@@ -12,7 +12,7 @@
         android:id="@+id/txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/acme"
         android:text="@string/custom_location"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -30,13 +30,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_title"
         android:background="@color/blue_grey" />
+    <TextView
+        android:id="@+id/txt_option1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/option_one"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/green_dark"
+        android:fontFamily="@font/acme"
+        android:textSize="35sp"
+        android:minHeight="48dp"
+        android:minWidth="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"/>
 
         <RelativeLayout
             android:id="@+id/customLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintTop_toBottomOf="@+id/txt_option1"
             android:gravity="center_horizontal"
             android:layout_marginTop="20dp">
 
@@ -49,7 +64,7 @@
                 android:autofillHints="postalAddress"
                 android:inputType="number"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 tools:ignore="TextContrastCheck"
                 android:minHeight="48dp"
                 android:minWidth="48dp"/>
@@ -64,7 +79,7 @@
                 android:inputType="text"
                 android:layout_toEndOf="@+id/edt_houseNumber"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 tools:ignore="TextContrastCheck"
                 android:minHeight="48dp"
                 android:minWidth="48dp"/>
@@ -79,7 +94,7 @@
                 android:inputType="text"
                 android:layout_toEndOf="@+id/edt_street"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 tools:ignore="TextContrastCheck"
                 android:minHeight="48dp"
                 android:minWidth="48dp"/>
@@ -133,7 +148,7 @@
                 android:layout_alignStart="@+id/edt_state"
                 android:layout_alignEnd="@+id/edt_state"
                 android:gravity="center_horizontal"
-                />
+                tools:ignore="TextContrastCheck"/>
             <TextView
                 android:id="@+id/txt_userLon"
                 android:layout_width="wrap_content"
@@ -143,10 +158,35 @@
                 android:layout_alignStart="@+id/edt_zipcode"
                 android:layout_alignEnd="@+id/edt_zipcode"
                 android:gravity="center_horizontal"
-                />
-
+                tools:ignore="TextContrastCheck"/>
 
         </RelativeLayout>
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customLayout"
+        android:background="@color/blue_grey"
+        android:layout_marginVertical="5dp"/>
+
+    <TextView
+        android:id="@+id/lbl_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/option_two"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:fontFamily="@font/acme"
+        android:textColor="@color/green_dark"
+        android:textSize="35sp"
+        android:minHeight="48dp"
+        android:minWidth="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/divider5"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        />
 
     <Spinner
         android:id="@+id/spn_prevAddresses"
@@ -156,9 +196,9 @@
         android:gravity="center_horizontal"
         android:layout_marginHorizontal="80dp"
         android:padding="1dp"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customLayout"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_spinner"
         />
 
     <LinearLayout
@@ -169,8 +209,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spn_prevAddresses"
         android:gravity="center"
-        android:layout_marginVertical="10dp"
-        android:background="@color/blue_grey"
+        android:layout_marginVertical="5dp"
         android:layout_marginHorizontal="2dp">
 
         <TextView
@@ -181,7 +220,6 @@
             android:textSize="20sp"
             android:layout_marginEnd="20dp"
             tools:ignore="TextContrastCheck"
-            android:textColor="@color/green_light"
             android:minHeight="48dp"
             android:minWidth="48dp"/>
         <TextView
@@ -191,18 +229,25 @@
             android:hint="@string/selected_longitude"
             android:textSize="20sp"
             tools:ignore="TextContrastCheck"
-            android:textColor="@color/green_light"
             android:minHeight="48dp"
             android:minWidth="48dp"/>
 
     </LinearLayout>
+    <Button
+        android:id="@+id/btn_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customLayout2"/>
 
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/btn_select"
         android:background="@color/blue_grey"
         android:layout_marginVertical="20dp"/>
 
@@ -213,18 +258,20 @@
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider2"
-        android:layout_marginTop="45dp">
+        android:layout_marginTop="5dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/or"
+            android:text="@string/option_three"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:fontFamily="@font/acme"
-            android:textSize="40sp"
+            android:textColor="@color/green_dark"
+            android:textSize="35sp"
             android:minHeight="48dp"
             android:minWidth="48dp"
-            android:gravity="center" />
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"/>
 
     </LinearLayout>
 
@@ -235,7 +282,8 @@
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider3"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp">
 
         <TextView
             android:id="@+id/lbl_random"
@@ -243,17 +291,18 @@
             android:layout_height="wrap_content"
             android:text="@string/generate_random"
             android:textSize="28sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_marginHorizontal="10dp"
             android:minHeight="48dp"
-            android:minWidth="48dp"/>
+            android:minWidth="48dp"
+            android:gravity="center"/>
 
         <Button
             android:id="@+id/btn_random"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/random"
-            android:layout_marginVertical="45dp"
+            android:layout_marginVertical="5dp"
             />
 
     </LinearLayout>
@@ -309,7 +358,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="40dp">
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/txt_reportedLat"

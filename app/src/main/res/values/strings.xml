@@ -37,4 +37,9 @@
     <string name="off">OFF</string>
     <string name="empty">empty</string>
     <string name="no_result">No Result</string>
+    <string name="select_a_location">Select a Location</string>
+    <string name="option_one">Option One : Enter An Address…</string>
+    <string name="option_two">Option Two : Select a Location…</string>
+    <string name="option_three">Option Three : Random Location…</string>
+    <string name="select">Select</string>
 </resources>

@@ -1,14 +1,11 @@
 package com.denommeinc.mockmylocation;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -27,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
@@ -46,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     /*
     * User Enters an Address to Retrieve Coordinates
     * */
-    public Address address;
     public int houseNumber, zipcode;
     public String streetAddress, state, town;
 
@@ -77,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     * Boolean for toggle switch
     * */
     public boolean isActivated;
-    public ArrayList<Address> addressArrayList;
     public ArrayAdapter<String> adapter;
     public String[] spinnerSelections = {
             "Massachusetts",
@@ -90,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public TextView
             lbl_activate, txt_lat, txt_lon, txt_reportedLat,
             txt_reportedLon, txt_userLat, txt_userLon;
-    public Button btn_random, btn_search;
+    public Button btn_random, btn_search, btn_select;
     public Spinner spn_address;
     public SwitchCompat sw_activate;
 
@@ -128,10 +122,11 @@ public class MainActivity extends AppCompatActivity {
         txt_reportedLon = findViewById(R.id.txt_reportedLon);
         txt_userLat = findViewById(R.id.txt_userLat);
         txt_userLon = findViewById(R.id.txt_userLon);
-
+        btn_select = findViewById(R.id.btn_select);
+        putTempAddressInEditText();
         try {
-            adapter = new ArrayAdapter<>(
-                    this, R.layout.spinner_item,
+            adapter = new ArrayAdapter<>(this,
+                    R.layout.spinner_item,
                     spinnerSelections
             );
             adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
@@ -140,27 +135,20 @@ public class MainActivity extends AppCompatActivity {
             showErrorMessage(e.getMessage());
         }
 
-        btn_random.setOnClickListener(v -> {
-            showMessage(String.valueOf(chooseRandomLocation()));
-            spn_address.setSelection(chooseRandomLocation() - 1);
-            Handler handler = new Handler();
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    sw_activate.toggle();
-                    Toast.makeText(MainActivity.this,
-                            "Mock Activated!", Toast.LENGTH_SHORT)
-                            .show();
-                }
-            };
-            handler.postDelayed(runnable, 3000);
+        btn_select.setOnClickListener(v -> {
+            initiateMockSequence(true);
         });
 
-        btn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                retrieveCoordinates();
-            }
+        btn_random.setOnClickListener(v -> {
+            spn_address.setSelection(chooseRandomLocation() - 1);
+            initiateMockSequence(true);
+        });
+
+        btn_search.setOnClickListener(v -> {
+            retrieveCoordinates();
+            Toast.makeText(MainActivity.this,
+                    "Getting Coordinates...", Toast.LENGTH_SHORT).show();
+            initiateMockSequence(true);
         });
 
         spn_address.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -169,17 +157,20 @@ public class MainActivity extends AppCompatActivity {
                 if (position == 0) {
                     mock_latitude = 42.03533440709362F;
                     mock_longitude = -71.68385446171698F;
+
                 } else if (position == 1) {
                     mock_latitude = 40.68931445306322F;
                     mock_longitude = -74.04445748877751F;
+
                 } else if (position == 2) {
                     mock_latitude = 28.377374468371652;
                     mock_longitude = -81.57076146239099;
+
                 } else if (position == 3) {
                     mock_latitude = 40.7640059863778;
                     mock_longitude = -73.99189287430765;
-                }
 
+                }
                 txt_lat.setText(String.valueOf(mock_latitude));
                 txt_lon.setText(String.valueOf(mock_longitude));
             }
@@ -261,7 +252,34 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    /*
+    *----------------------------------------------------------------------------------------------
+    * Remove putTempAddressInEditText
+    *  This is for testing only!!!
+    * ----------------------------------------------------------------------------------------------
+    * */
+    @SuppressLint("SetTextI18n")
+    public void putTempAddressInEditText() {
+        edt_houseNumber.setText("39");
+        edt_street.setText("Clinton Ave");
+        edt_town.setText("Hope");
+        edt_zipcode.setText("02831");
+        edt_state.setText("RI");
+    }
+
+    public void initiateMockSequence(boolean initiate) {
+        if (initiate) {
+            Handler handler = new Handler();
+            Runnable runnable = () -> {
+                sw_activate.toggle();
+                Toast.makeText(MainActivity.this,
+                                "Mock Activated!", Toast.LENGTH_SHORT)
+                        .show();
+            };
+            handler.postDelayed(runnable, 3000);
+        }
     }
 
     private int chooseRandomLocation() {
@@ -277,26 +295,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            return;
-        } else {
 
+        } else {
             mockLocationClass = new MockLocationClass(MainActivity.this);
             mockLocationClass.startMockLocationUpdates(mock_latitude, mock_longitude);
-            Location networkLoc = MockLocationClass.mock_manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            Location gpsLoc = MockLocationClass.mock_manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
             try {
-
-                Log.i(TAG, "LATITUDE:\t" + String.valueOf(mock_latitude));
-
-                Log.i(TAG, "LONGITUDE:\t" + String.valueOf(mock_longitude));
                 txt_reportedLat.setText(String.valueOf(mock_latitude));
                 txt_reportedLon.setText(String.valueOf(mock_longitude));
             } catch (Exception e) {
                 Log.e("ERROR2", e.getMessage());
             }
-
-
         }
     }
 
@@ -318,8 +326,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void retrieveCoordinates() {
-        double tempLat = 0;
-        double tempLon = 0;
+        double tempLat;
+        double tempLon;
 
         try {
             houseNumber = Integer.parseInt(edt_houseNumber.getText().toString());
@@ -337,14 +345,12 @@ public class MainActivity extends AppCompatActivity {
                     state);
             tempLat = coordinatesFromAddress.latitude;
             tempLon = coordinatesFromAddress.longitude;
+            mock_latitude = tempLat;
+            mock_longitude = tempLon;
             txt_userLat.setText(String.valueOf(tempLat));
             txt_userLon.setText(String.valueOf(tempLon));
-
-            showMessage("TempLat:\t" + tempLat + "\tTempLon:\t" + tempLon);
-
         } catch (NullPointerException e) {
             showErrorMessage(e.getMessage());
         }
     }
-
 }

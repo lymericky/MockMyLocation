@@ -6,7 +6,6 @@
     android:text="@string/location_address_1"
     android:layout_marginVertical="5dp"
     android:textSize="30sp"
-    android:textColor="@color/green_dark"
     android:minWidth="48dp"
     android:minHeight="48dp"
     android:gravity="center_horizontal"/>

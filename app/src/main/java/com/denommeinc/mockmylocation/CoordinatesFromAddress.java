@@ -5,8 +5,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -56,6 +54,7 @@ public class CoordinatesFromAddress {
         sb.append(town);
         sb.append(state);
         sb.append(zipcode);
+        init();
     }
 
     public CoordinatesFromAddress init() {
@@ -66,10 +65,10 @@ public class CoordinatesFromAddress {
             addressList = geocoder.getFromLocationName(searchAddress, 1);
             setLatitude(addressList.get(0).getLatitude());
             latitude = addressList.get(0).getLatitude();
-            Log.i("LATITUDE", String.valueOf(latitude));
+            Log.i("GEO- LATITUDE", String.valueOf(latitude));
             setLongitude(addressList.get(0).getLongitude());
             longitude = addressList.get(0).getLongitude();
-            Log.i("LONGITUDE", String.valueOf(longitude));
+            Log.i("GEO- LONGITUDE", String.valueOf(longitude));
         } catch (IOException e) {
             Log.e("ERROR", e.getMessage());
         }
