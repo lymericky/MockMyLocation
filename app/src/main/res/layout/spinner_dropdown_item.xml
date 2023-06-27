@@ -5,6 +5,6 @@
     style="?android:spinnerDropDownItemStyle"
     android:singleLine="true"
     android:ellipsize="marquee"
-    android:textSize="30sp"
+    android:textSize="14sp"
     />
 

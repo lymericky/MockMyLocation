@@ -68,7 +68,7 @@
 
         <EditText
             android:id="@+id/edt_street"
-            android:layout_width="150dp"
+            android:layout_width="175dp"
             android:layout_height="48dp"
             android:hint="@string/street"
             android:textSize="12sp"
@@ -132,13 +132,13 @@
             android:layout_alignEnd="@+id/edt_street"
             android:layout_below="@+id/edt_street"
             android:layout_marginHorizontal="25dp"
-            />
+            android:layout_marginTop="15dp"/>
 
         <TextView
             android:id="@+id/txt_userLat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_result"
+            android:text="@string/lat_result"
             android:layout_below="@+id/edt_state"
             android:layout_alignStart="@+id/edt_state"
             android:layout_alignEnd="@+id/edt_state"
@@ -149,7 +149,7 @@
             android:id="@+id/txt_userLon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_result"
+            android:text="@string/lon_result"
             android:layout_below="@+id/edt_zipcode"
             android:layout_alignStart="@+id/edt_zipcode"
             android:layout_alignEnd="@+id/edt_zipcode"
@@ -164,7 +164,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customLayout"
         android:background="@color/blue_grey"
-        android:layout_marginVertical="5dp"/>
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/lbl_spinner"
@@ -230,19 +230,20 @@
         android:text="@string/select"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customLayout2"/>
+        app:layout_constraintTop_toBottomOf="@+id/customLayout2"
+        android:layout_marginVertical="5dp"/>
 
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
-        android:layout_height="15dp"
+        android:layout_height="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_select"
         android:background="@color/blue_grey"
         />
 
     <LinearLayout
-        android:id="@+id/divider3"
+        android:id="@+id/layout_title3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -270,7 +271,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider3"
+        app:layout_constraintTop_toBottomOf="@+id/layout_title3"
         android:gravity="center_horizontal">
 
         <TextView
@@ -288,6 +289,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/random"
+            android:layout_marginVertical="5dp"
             />
 
     </LinearLayout>
@@ -298,7 +300,6 @@
         android:layout_height="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customLayout3"
-        app:layout_constraintBottom_toTopOf="@+id/statusLayout"
         android:background="@color/blue_grey"
         />
 
@@ -341,7 +342,8 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/txt_reportedLat"

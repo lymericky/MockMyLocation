@@ -2,8 +2,10 @@ package com.denommeinc.mockmylocation;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.AppOpsManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     * */
     public int houseNumber, zipcode;
     public String streetAddress, state, town;
+    public AlertDialog.Builder builder;
+    public AlertDialog alertDialog;
 
     /*
     * Randomly Select Coordinates to Mock
@@ -95,11 +99,23 @@ public class MainActivity extends AppCompatActivity {
         Log.e(TAG_ERROR, errorMessage);
     }
 
+    public void showAlertMessage(String title, String message) {
+        builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(title);
+            builder.setMessage(message);
+            builder.setCancelable(false);
+            builder.setNegativeButton("Deactivate", (dialog, which) -> {
+                if (isActivated) {
+                    sw_activate.toggle();
+                }
+            });
+            alertDialog = builder.create();
+            alertDialog.show();
+    }
     @Override
     protected void onResume() {
         super.onResume();
         isReady = isMockLocationEnabled();
-
     }
 
     @Override
@@ -151,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
             initiateMockSequence(true);
         });
 
-        spn_address.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spn_address.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
@@ -185,8 +202,11 @@ public class MainActivity extends AppCompatActivity {
             if (sw_activate.isChecked()) {
                 if (!isReady) {
                     Toast.makeText(this, R.string.notification, Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
+                    startActivity(new Intent(
+                            android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
                     sw_activate.toggle();
+                    showAlertMessage(getString(R.string.change_setting),
+                            getString(R.string.notification));
 
                 } else {
                     if (!isActivated) {
@@ -195,6 +215,8 @@ public class MainActivity extends AppCompatActivity {
                         lbl_activate.setTextColor(getColor(R.color.amber));
                         txt_reportedLon.setTextColor(getColor(R.color.amber));
                         txt_reportedLat.setTextColor(getColor(R.color.amber));
+                        showAlertMessage(getString(R.string.alert_title),
+                                getString(R.string.active));
                         isActivated = true;
 
                     } else {
@@ -312,7 +334,9 @@ public class MainActivity extends AppCompatActivity {
     {
         boolean isMockLocation;
         try {
-            AppOpsManager opsManager = (AppOpsManager) MainActivity.this.getSystemService(Context.APP_OPS_SERVICE);
+
+            AppOpsManager opsManager = (AppOpsManager)
+                    MainActivity.this.getSystemService(Context.APP_OPS_SERVICE);
             isMockLocation = (
                     Objects.requireNonNull(opsManager).checkOp(
                             AppOpsManager.OPSTR_MOCK_LOCATION,
