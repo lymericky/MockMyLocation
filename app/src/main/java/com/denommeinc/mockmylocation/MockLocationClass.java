@@ -1,14 +1,10 @@
 package com.denommeinc.mockmylocation;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.location.GnssStatus;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.provider.ProviderProperties;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -20,17 +16,9 @@ public class MockLocationClass extends AppCompatActivity {
 
     public static Location mock_location;
     public static LocationManager mock_manager;
-    public Handler handler;
+    public final Handler handler;
     public Runnable runnable;
-
     public static double mockLat, mockLon;
-    public static void setMockLat(double mockLat) {
-        MockLocationClass.mockLat = mockLat;
-    }
-
-    public static void setMockLon(double mockLon) {
-        MockLocationClass.mockLon = mockLon;
-    }
 
     MockLocationClass(Context context) {
         mock_manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -38,23 +26,23 @@ public class MockLocationClass extends AppCompatActivity {
     }
 
     void startMockLocationUpdates(final double mock_latitude, final double mock_longitude) {
-        runnable = new Runnable() {
-            @SuppressLint("NewApi")
-            @Override
-            public void run() {
-                    MainActivity.setMock_latitude(mock_latitude);
-                    mockLat = mock_latitude;
-                    MainActivity.setMock_longitude(mock_longitude);
-                    mockLon = mock_longitude;
+        runnable = () -> {
+                MainActivity.setMock_latitude(mock_latitude);
+                mockLat = mock_latitude;
+                MainActivity.setMock_longitude(mock_longitude);
+                mockLon = mock_longitude;
 
-                    setMock(LocationManager.GPS_PROVIDER, mock_latitude, mock_longitude);
-                    Log.i("MOCK", "GPS \t" + "lat:\t" + mock_latitude + "\tlon:\t" + mock_longitude);
-                    setMock(LocationManager.NETWORK_PROVIDER, mock_latitude, mock_longitude);
-                    Log.i("MOCK", "Network \t" + "lat:\t" + mock_latitude + "\tlon:\t" + mock_longitude);
-
-                handler.postDelayed(runnable, 1000);
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                setMock(LocationManager.GPS_PROVIDER, mock_latitude, mock_longitude);
             }
+            Log.i("MOCK", "GPS \t" + "lat:\t" + mock_latitude + "\tlon:\t" + mock_longitude);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                setMock(LocationManager.NETWORK_PROVIDER, mock_latitude, mock_longitude);
+            }
+            Log.i("MOCK", "Network \t" + "lat:\t" + mock_latitude + "\tlon:\t" + mock_longitude);
+
+            handler.postDelayed(runnable, 1000);
+
         };
         handler.post(runnable);
     }

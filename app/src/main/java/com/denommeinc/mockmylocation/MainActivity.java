@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AppOpsManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     * */
     public boolean isActivated;
     public ArrayAdapter<String> adapter;
-    public String[] spinnerSelections = {
+    public final String[] spinnerSelections = {
             "Massachusetts",
             "Statue of Liberty",
             "Walt Disney World",
@@ -101,16 +100,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void showAlertMessage(String title, String message) {
         builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle(title);
-            builder.setMessage(message);
-            builder.setCancelable(false);
-            builder.setNegativeButton("Deactivate", (dialog, which) -> {
-                if (isActivated) {
-                    sw_activate.toggle();
-                }
-            });
-            alertDialog = builder.create();
-            alertDialog.show();
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setCancelable(false);
+        builder.setNegativeButton("Deactivate", (dialog, which) -> {
+            if (isActivated) {
+                sw_activate.toggle();
+            }
+        });
+        alertDialog = builder.create();
+        alertDialog.show();
     }
     @Override
     protected void onResume() {
@@ -151,9 +150,7 @@ public class MainActivity extends AppCompatActivity {
             showErrorMessage(e.getMessage());
         }
 
-        btn_select.setOnClickListener(v -> {
-            initiateMockSequence(true);
-        });
+        btn_select.setOnClickListener(v -> initiateMockSequence(true));
 
         btn_random.setOnClickListener(v -> {
             spn_address.setSelection(chooseRandomLocation() - 1);
